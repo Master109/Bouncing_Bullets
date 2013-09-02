@@ -23,13 +23,15 @@ class Bullet implements GameObject
   void run()
   {
     if (loc.dist(player.loc) <= diameter / 2 + (player.diameter / 2))
-      reset();
+      shouldReset = true;
 
     vel.setMag(5);
     loc.add(vel);
 
-    loc.x = (loc.x + width) % width;
-    loc.y = (loc.y + height) % height;
+    if (loc.x + diameter >= width || loc.x - diameter <= 0)
+      vel.x *= -1;
+    if (loc.y + diameter >= height || loc.y - diameter <= 0)
+      vel.y *= -1;
   }
 }
 

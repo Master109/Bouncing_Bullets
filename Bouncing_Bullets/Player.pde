@@ -44,8 +44,14 @@ class Player implements GameObject
     loc.add(vel);
     vel.mult(.95);
 
-    loc.x = (loc.x + width) % width;
-    loc.y = (loc.y + height) % height;
+    if (loc.x + diameter >= width)
+      vel.x = -abs(vel.x); 
+    if (loc.x - diameter <= 0)
+      vel.x = abs(vel.x);
+    if (loc.y + diameter >= height)
+      vel.y = -abs(vel.y); 
+    if (loc.y - diameter <= 0)
+      vel.y = abs(vel.y);
   }
 }
 
