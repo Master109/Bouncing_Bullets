@@ -1,14 +1,17 @@
 class Player implements GameObject
 {
-  PVector loc;
-  int diameter;
+  PVector loc, vel;
+  int diameter, shootTimeCurrent, shootTimeDeadline;
   float rotation;
 
   Player()
   {
     rotation = 0;
     loc = new PVector(width / 2, height / 2);
+    vel = new PVector();
     diameter = 35;
+    shootTimeCurrent = 0;
+    shootTimeDeadline = 30;
   }
 
   void show()
@@ -16,7 +19,7 @@ class Player implements GameObject
     fill(127.5);
     stroke(0, 255, 0);
     strokeWeight(4);
-    
+
     translate(loc);
     rotate(rotation);
     ellipse(diameter);
@@ -30,11 +33,19 @@ class Player implements GameObject
   {
     if (keys[0])
       rotation -= .1; else if (keys[1])
-      rotation += .1; else if (keys[2])
+      rotation += .1; else if (keys[2] && shootTimeCurrent >= shootTimeDeadline)
     {
       float BULLET_SPEED = 10;
-      bullets.add(new Bullet(copy(loc), createPVectorForMagnitudeAndHeading(BULLET_SPEED, rotation)));
+      bullets.add(new Bullet(copy(loc), PVector.div(createPVectorForMagnitudeAndHeading(BULLET_SPEED, rotation), 4)));
+      vel.set(PVector.mult(createPVectorForMagnitudeAndHeading(BULLET_SPEED, rotation), -1));
+      shootTimeCurrent = 0;
     }
+    shootTimeCurrent ++;
+    loc.add(vel);
+    vel.mult(.95);
+
+    loc.x = (loc.x + width) % width;
+    loc.y = (loc.y + height) % height;
   }
 }
 

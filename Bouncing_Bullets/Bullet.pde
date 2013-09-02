@@ -7,9 +7,9 @@ class Bullet implements GameObject
   {
     this.loc = loc;
     this.vel = vel;
-    
+
     loc.add(PVector.mult(vel, 10));
-    
+
     diameter = 10;
   }
 
@@ -24,9 +24,12 @@ class Bullet implements GameObject
   {
     if (loc.dist(player.loc) <= diameter / 2 + (player.diameter / 2))
       reset();
-      
+
     vel.setMag(5);
     loc.add(vel);
+
+    loc.x = (loc.x + width) % width;
+    loc.y = (loc.y + height) % height;
   }
 }
 
