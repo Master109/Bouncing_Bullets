@@ -17,13 +17,13 @@ class Player implements GameObject
     stroke(0, 255, 0);
     strokeWeight(4);
     
-    translate(loc.x, loc.y);
+    translate(loc);
     rotate(rotation);
-    ellipse(0, 0, diameter, diameter);
+    ellipse(diameter);
 
     noStroke();
     fill(0, 0, 255);
-    ellipse(-diameter / 4, 0, diameter / 4, diameter / 4);
+    ellipse(diameter / 4, 0, diameter / 4, diameter / 4);
   }
 
   void run()
