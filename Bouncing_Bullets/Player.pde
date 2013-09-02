@@ -1,4 +1,4 @@
-class Player
+class Player implements GameObject
 {
   PVector loc;
   int diameter;
@@ -16,10 +16,11 @@ class Player
     fill(127.5);
     stroke(0, 255, 0);
     strokeWeight(4);
-    pushMatrix();
+    
     translate(loc.x, loc.y);
     rotate(rotation);
     ellipse(0, 0, diameter, diameter);
+
     noStroke();
     fill(0, 0, 255);
     ellipse(-diameter / 4, 0, diameter / 4, diameter / 4);
@@ -30,8 +31,10 @@ class Player
     if (keys[0])
       rotation -= .1; else if (keys[1])
       rotation += .1; else if (keys[2])
-      bullets.add(new Bullet(new PVector(loc.x - 25, loc.y)));
-    popMatrix();
+    {
+      float BULLET_SPEED = 10;
+      bullets.add(new Bullet(copy(loc), createPVectorForMagnitudeAndHeading(BULLET_SPEED, rotation)));
+    }
   }
 }
 

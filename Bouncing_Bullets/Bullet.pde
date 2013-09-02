@@ -1,26 +1,30 @@
-class Bullet
+class Bullet implements GameObject
 {
-  PVector loc;
-  PVector vel;
+  PVector loc, vel;
   int diameter;
 
-  Bullet(PVector loc)
+  Bullet(PVector loc, PVector vel)
   {
     this.loc = loc;
-    vel = PVector.sub(loc, player.loc);
+    this.vel = vel;
+    
+    loc.add(PVector.mult(vel, 10));
+    
     diameter = 10;
   }
 
   void show()
   {
+    translate(loc);
     fill(255, 0, 0);
-    ellipse(loc.x, loc.y, diameter, diameter);
+    ellipse(diameter);
   }
 
   void run()
   {
     if (loc.dist(player.loc) <= diameter / 2 + (player.diameter / 2))
       reset();
+      
     vel.setMag(5);
     loc.add(vel);
   }

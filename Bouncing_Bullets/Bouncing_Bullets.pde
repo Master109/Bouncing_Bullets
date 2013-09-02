@@ -18,11 +18,19 @@ void reset()
 void draw()
 {
   background(127.5);
+  
+  pushMatrix();
   player.show();
+  popMatrix();
+  
   player.run();
+  
   for (Bullet b : bullets)
   {
+    pushMatrix();
     b.show();
+    popMatrix();
+    
     b.run();
   }
 }
