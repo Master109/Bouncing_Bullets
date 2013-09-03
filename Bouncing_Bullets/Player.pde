@@ -32,11 +32,15 @@ class Player implements GameObject
   void run()
   {
     if (keys[0])
-      rotation -= .1; else if (keys[1])
-      rotation += .1; else if (keys[2] && shootTimeCurrent >= shootTimeDeadline)
+      rotation -= .2; else if (keys[1])
+      rotation += .2; else if (keys[2] && shootTimeCurrent >= shootTimeDeadline)
     {
       float BULLET_SPEED = 10;
       bullets.add(new Bullet(copy(loc), PVector.div(createPVectorForMagnitudeAndHeading(BULLET_SPEED, rotation), 4)));
+      bullets.add(new Bullet(copy(loc), PVector.div(createPVectorForMagnitudeAndHeading(BULLET_SPEED, rotation + .3), 4)));
+      //bullets.add(new Bullet(copy(loc), PVector.div(createPVectorForMagnitudeAndHeading(BULLET_SPEED, rotation + .6), 4)));
+      bullets.add(new Bullet(copy(loc), PVector.div(createPVectorForMagnitudeAndHeading(BULLET_SPEED, rotation - .3), 4)));
+      //bullets.add(new Bullet(copy(loc), PVector.div(createPVectorForMagnitudeAndHeading(BULLET_SPEED, rotation - .6), 4)));
       vel.set(PVector.mult(createPVectorForMagnitudeAndHeading(BULLET_SPEED, rotation), -1));
       shootTimeCurrent = 0;
     }
