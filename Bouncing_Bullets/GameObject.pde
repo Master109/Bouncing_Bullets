@@ -1,5 +1,5 @@
 interface GameObject
 {
   void show();
-  void run();
+  boolean run();
 }

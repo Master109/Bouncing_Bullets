@@ -16,14 +16,20 @@ class Bullet implements GameObject
   void show()
   {
     translate(loc);
-    fill(255, 0, 0);
+    fill(255, 255, 0);
     ellipse(diameter);
   }
 
-  void run()
+  boolean run()
   {
     if (loc.dist(player.loc) <= diameter / 2 + (player.diameter / 2))
       shouldReset = true;
+    for (EnemyFollow e : enemies)
+      if (loc.dist(e.loc) <= diameter / 2 + (e.diameter / 2))
+      {
+        e.hp --;
+        return false;
+      }
 
     vel.setMag(5);
     loc.add(vel);
@@ -32,6 +38,8 @@ class Bullet implements GameObject
       vel.x *= -1;
     if (loc.y + diameter >= height || loc.y - diameter <= 0)
       vel.y *= -1;
+
+    return true;
   }
 }
 

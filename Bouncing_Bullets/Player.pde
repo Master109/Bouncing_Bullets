@@ -29,11 +29,13 @@ class Player implements GameObject
     ellipse(diameter / 4, 0, diameter / 4, diameter / 4);
   }
 
-  void run()
+  boolean run()
   {
     if (keys[0])
-      rotation -= .2; else if (keys[1])
-      rotation += .2; else if (keys[2] && shootTimeCurrent >= shootTimeDeadline)
+      rotation -= .2; 
+    else if (keys[1])
+      rotation += .2; 
+    else if (keys[2] && shootTimeCurrent >= shootTimeDeadline)
     {
       float BULLET_SPEED = 10;
       bullets.add(new Bullet(copy(loc), PVector.div(createPVectorForMagnitudeAndHeading(BULLET_SPEED, rotation), 4)));
@@ -56,6 +58,7 @@ class Player implements GameObject
       vel.y = -abs(vel.y); 
     if (loc.y - diameter <= 0)
       vel.y = abs(vel.y);
+    return true;
   }
 }
 
