@@ -1,12 +1,12 @@
-class EnemyFollow implements GameObject
+class Enemy implements GameObject
 {
   PVector loc, vel;
   int diameter, hp;
 
-  EnemyFollow()
+  Enemy(PVector loc, PVector vel, int diameter, int hp)
   {
     loc = randomPointOnScreen();
-    while (loc.dist (player.loc) <= 450)
+    while (loc.dist (player.loc) <= 400)
       loc = randomPointOnScreen();
     vel = new PVector(0, 0);
     diameter = 20;
@@ -15,17 +15,14 @@ class EnemyFollow implements GameObject
 
   void show()
   {
-    fill(255, 0, 0);
-    ellipse(loc.x, loc.y, diameter, diameter);
   }
 
   boolean run()
   {
     if (hp <= 0)
       return false;
-    vel.set(PVector.sub(player.loc, loc));
-    vel.setMag(3);
-    loc.add(vel);
+    if (loc.dist(player.loc) <= diameter / 2 + (player.diameter / 2))
+      shouldReset = true;
     return true;
   }
 }

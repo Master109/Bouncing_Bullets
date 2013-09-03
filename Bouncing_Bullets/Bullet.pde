@@ -24,7 +24,7 @@ class Bullet implements GameObject
   {
     if (loc.dist(player.loc) <= diameter / 2 + (player.diameter / 2))
       shouldReset = true;
-    for (EnemyFollow e : enemies)
+    for (Enemy e : enemies)
       if (loc.dist(e.loc) <= diameter / 2 + (e.diameter / 2))
       {
         e.hp --;

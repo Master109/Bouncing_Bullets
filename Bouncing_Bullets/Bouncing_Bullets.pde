@@ -1,7 +1,7 @@
 Player player;
 ArrayList<Bullet> bullets;
-ArrayList<EnemyFollow> enemies;
-ArrayList<EnemyFollow> aliveEnemies;
+ArrayList<Enemy> enemies;
+ArrayList<Enemy> aliveEnemies;
 ArrayList<Bullet> aliveBullets;
 boolean[] keys;
 boolean shouldReset;
@@ -26,14 +26,16 @@ void reset()
   shouldReset = false;
   player = new Player();
   bullets = new ArrayList<Bullet>();
-  enemies = new ArrayList<EnemyFollow>();
-  aliveEnemies = new ArrayList<EnemyFollow>();
+  enemies = new ArrayList<Enemy>();
+  aliveEnemies = new ArrayList<Enemy>();
   aliveBullets = new ArrayList<Bullet>();
-  enemyAppearTimes = new float[1];
+  enemyAppearTimes = new float[2];
   for (int i = 0; i < enemyAppearTimes.length; i ++)
     enemyAppearTimes[i] = 0;
-  enemyAppearDeadlines = new float[1];
-  enemyAppearDeadlines[0] = 240;
+  enemyAppearDeadlines = new float[2];
+  enemyAppearDeadlines[0] = 180;
+  enemyAppearDeadlines[1] = 300;
+  enemies.add(new EnemyFollowExactly());
 }
 
 void draw()
@@ -41,7 +43,7 @@ void draw()
   if (shouldReset || isPaused)
     return;
 
-  aliveEnemies = new ArrayList<EnemyFollow>();
+  aliveEnemies = new ArrayList<Enemy>();
   aliveBullets = new ArrayList<Bullet>();
 
   for (int i = 0; i < enemyAppearTimes.length; i ++)
@@ -49,8 +51,11 @@ void draw()
     if (enemyAppearTimes[i] >= enemyAppearDeadlines[i])
     {
       if (i == 0)
-        enemies.add(new EnemyFollow());
+        enemies.add(new EnemyFollowExactly());
+      else if (i == 1)
+        enemies.add(new EnemyFollowBadly());
       enemyAppearTimes[i] = 0;
+      enemyAppearDeadlines[i] *= .95;
     }
   }
 
@@ -75,7 +80,7 @@ void draw()
       aliveBullets.remove(b);
   }
 
-  for (EnemyFollow e : enemies)
+  for (Enemy e : enemies)
   {
     if (e.run())
     {
@@ -91,7 +96,7 @@ void draw()
 
   textAlign(CENTER, TOP);
   fill(0);
-  text(bullets.size() / 3, width / 2, 0);
+  text(bullets.size(), width / 2, 0);
 
   for (int i = 0; i < enemyAppearTimes.length; i ++)
   {

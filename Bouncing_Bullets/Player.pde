@@ -11,7 +11,7 @@ class Player implements GameObject
     vel = new PVector();
     diameter = 35;
     shootTimeCurrent = 0;
-    shootTimeDeadline = 30;
+    shootTimeDeadline = 15;
   }
 
   void show()
