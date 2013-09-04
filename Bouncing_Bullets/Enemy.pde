@@ -9,13 +9,24 @@ abstract class Enemy implements GameObject
     this.vel = new PVector();
     this.diameter = diameter;
     this.hp = hp;
-    while (loc.dist (player.loc) <= 400)
-      loc = randomPointOnScreen();
   }
 
   void show()
   {
     ellipse(loc, diameter);
+  }
+
+  boolean run()
+  {
+    if (loc.x + diameter >= width)
+      vel.x = -abs(vel.x); 
+    if (loc.x - diameter <= 0)
+      vel.x = abs(vel.x);
+    if (loc.y + diameter >= height)
+      vel.y = -abs(vel.y); 
+    if (loc.y - diameter <= 0)
+      vel.y = abs(vel.y);
+    return true;
   }
 }
 

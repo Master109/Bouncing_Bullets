@@ -1,8 +1,10 @@
+import java.util.List;
+
 Player player;
-ArrayList<Bullet> bullets;
-ArrayList<Bullet> aliveBullets;
-ArrayList<Enemy> enemies;
-ArrayList<Enemy> aliveEnemies;
+List<Bullet> bullets;
+List<Bullet> aliveBullets;
+List<Enemy> enemies;
+List<Enemy> aliveEnemies;
 boolean[] keys;
 boolean shouldReset;
 boolean isPaused;
@@ -12,7 +14,7 @@ PFont font;
 
 void setup()
 {
-  size(700, 700);
+  size(750, 750);
   keys = new boolean[3];
   font = createFont("Arial", 24);
   textFont(font);
@@ -34,7 +36,7 @@ void reset()
     enemyAppearTimes[i] = 0;
   enemyAppearDeadlines = new float[2];
   enemyAppearDeadlines[0] = 180;
-  enemyAppearDeadlines[1] = 300;
+  enemyAppearDeadlines[1] = 420;
   enemies.add(new EnemyFollowExactly());
 }
 
@@ -44,6 +46,7 @@ void draw()
     return;
 
   aliveEnemies = new ArrayList<Enemy>();
+  aliveBullets = new ArrayList<Bullet>();
 
   for (int i = 0; i < enemyAppearTimes.length; i ++)
   {
@@ -91,6 +94,7 @@ void draw()
   }
 
   enemies.retainAll(aliveEnemies);
+  bullets.retainAll(aliveBullets);
 
   textAlign(CENTER, TOP);
   fill(0);

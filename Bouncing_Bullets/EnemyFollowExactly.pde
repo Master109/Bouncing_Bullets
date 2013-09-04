@@ -2,7 +2,9 @@ class EnemyFollowExactly extends Enemy
 {
   EnemyFollowExactly()
   {
-    super(20, 1);
+    super(20, 3);
+    while (loc.dist (player.loc) <= 400)
+      loc = randomPointOnScreen();
   }
 
   void show()
@@ -20,7 +22,7 @@ class EnemyFollowExactly extends Enemy
     vel.set(PVector.sub(player.loc, loc));
     vel.setMag(3);
     loc.add(vel);
-    return true;
+    return super.run();
   }
 }
 
