@@ -1,22 +1,14 @@
 class EnemyFollowExactly extends Enemy
 {
-  PVector loc, vel;
-  int diameter, hp;
-
   EnemyFollowExactly()
   {
-    loc = randomPointOnScreen();
-    while (loc.dist (player.loc) <= 400)
-      loc = randomPointOnScreen();
-    vel = new PVector(0, 0);
-    diameter = 20;
-    hp = 1;
+    super(20, 1);
   }
 
   void show()
   {
     fill(255, 0, 0);
-    ellipse(loc.x, loc.y, diameter, diameter);
+    super.show();
   }
 
   boolean run()

@@ -32,9 +32,9 @@ class Player implements GameObject
   boolean run()
   {
     if (keys[0])
-      rotation -= .2; 
+      rotation -= .25; 
     else if (keys[1])
-      rotation += .2; 
+      rotation += .25; 
     else if (keys[2] && shootTimeCurrent >= shootTimeDeadline)
     {
       float BULLET_SPEED = 10;

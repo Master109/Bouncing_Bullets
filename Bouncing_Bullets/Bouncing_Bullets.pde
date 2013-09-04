@@ -1,8 +1,8 @@
 Player player;
 ArrayList<Bullet> bullets;
+ArrayList<Bullet> aliveBullets;
 ArrayList<Enemy> enemies;
 ArrayList<Enemy> aliveEnemies;
-ArrayList<Bullet> aliveBullets;
 boolean[] keys;
 boolean shouldReset;
 boolean isPaused;
@@ -26,9 +26,9 @@ void reset()
   shouldReset = false;
   player = new Player();
   bullets = new ArrayList<Bullet>();
+  aliveBullets = new ArrayList<Bullet>();
   enemies = new ArrayList<Enemy>();
   aliveEnemies = new ArrayList<Enemy>();
-  aliveBullets = new ArrayList<Bullet>();
   enemyAppearTimes = new float[2];
   for (int i = 0; i < enemyAppearTimes.length; i ++)
     enemyAppearTimes[i] = 0;
@@ -44,7 +44,6 @@ void draw()
     return;
 
   aliveEnemies = new ArrayList<Enemy>();
-  aliveBullets = new ArrayList<Bullet>();
 
   for (int i = 0; i < enemyAppearTimes.length; i ++)
   {
@@ -92,7 +91,6 @@ void draw()
   }
 
   enemies.retainAll(aliveEnemies);
-  bullets.retainAll(aliveBullets);
 
   textAlign(CENTER, TOP);
   fill(0);
